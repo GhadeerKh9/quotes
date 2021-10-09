@@ -1,60 +1,67 @@
 package quotes;
 
-import java.util.Arrays;
-
 public class Quotes {
+    //Declare variables
+    private String author;
+    private String text;
+    private String content;
+    private String authorSlug;
 
-    private String  author;
-    private String  text;
-    private String  likes;
-    private String[] tags;
-
-    public Quotes(String author, String text, String likes, String[] tags) {
+    //Constructor
+    public Quotes(String author, String text){
         this.author = author;
-        this.likes = text;
-        this.text = likes;
-        this.tags = tags;
+        this.text = text;
+    }
+    public Quotes(){}
+
+    public Quotes(String author, String content, String authorSlug){
+        this.author=author;
+        this.content=content;
+        this.authorSlug=authorSlug;
     }
 
+    @Override
+    public String toString() {
+        if (text==null)
+            return "Quotes{" +
+                    "author='" + author + '\'' +
+                    ", text='" + content + '\'';
+        else
+            return "Quotes{" +
+                    "author='" + author + '\'' +
+                    ", text='" + text + '\'';
+    }
+
+    //Getter:
     public String getAuthor() {
         return author;
     }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
-    public String getLikes() {
-        return likes;
-    }
-
-    public void setLikes(String likes) {
-        this.likes = likes;
-    }
-
     public String getText() {
         return text;
+    }
+
+    //Setter:
+    public void setAuthor(String author) {
+        this.author = author;
     }
 
     public void setText(String text) {
         this.text = text;
     }
 
-    public String[] getTags() {
-        return tags;
+    public String getContent() {
+        return content;
     }
 
-    public void setTags(String[] tags) {
-        this.tags = tags;
+    public void setContent(String content) {
+        this.content = content;
     }
 
-    @Override
-    public String toString() {
-        return "Quotes{" +
-                "author='" + author + '\'' +
-                ", text='" + text + '\'' +
-                ", likes='" + likes + '\'' +
-                ", tags=" + Arrays.toString(tags) +
-                '}';
+    public String getAuthorSlug() {
+        return authorSlug;
+    }
+
+    public void setAuthorSlug(String authorSlug) {
+        this.authorSlug = authorSlug;
     }
 }

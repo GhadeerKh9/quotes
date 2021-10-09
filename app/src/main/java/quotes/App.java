@@ -4,64 +4,67 @@
 package quotes;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+
+
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.Reader;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Random;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class App {
+    public static void main(String[] args) {
+
+        String apiUrl = "https://api.quotable.io/random";
+        try {
+            Gson gson1 = new Gson();
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("User-Agent", "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.11 (KHTML, like Gecko) Chrome/23.0.1271.95 Safari/537.11");
+            int status = connection.getResponseCode();
+
+            if (status == 200) {
+                InputStream inputStream = connection.getInputStream();
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String line = bufferedReader.readLine();
+                Quotes q1 = gson1.fromJson(line, Quotes.class);
+                System.out.println("From API");
+                System.out.println(q1.toString());
 
 
-import com.google.common.reflect.TypeToken;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Random;
+                bufferedReader.close();
+            } else {
+                Gson gson = new Gson();
+                try {
+                    Reader reader = new FileReader("./app/src/main/resources/recentquotes.json");
+                    Quotes[] q1 = gson.fromJson(reader, Quotes[].class);
+                    int min = 0;
+                    int max = q1.length - 1;
+                    int b = (int) (Math.random() * (max - min + 1) + min);
+                    System.out.println("from local file");
+                    System.out.println(q1[b].toString());
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
 
+            connection.disconnect();
 
-        public static void main(String[] args) throws IOException {
-
-            System.out.println("hello");
-            int value = new Random().nextInt(readFile().size() - 1);
-            System.out.println(value + "    This is the index");
-            System.out.println(readFile().get(value).toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
-        public static ArrayList<Quotes> readFile() throws IOException {
-            String path = "./app/src/main/resources/recentquotes.json";
-            BufferedReader reader = new BufferedReader(new FileReader(path));
-            Type quotesArrayList = new TypeToken<ArrayList<quotes.Quotes>>() {
-            }.getType();
-            GsonBuilder builder = new GsonBuilder();
-            Gson gson = builder.create();
-            ArrayList<Quotes> converter = gson.fromJson(reader, quotesArrayList);
-            return converter;
-        }
+
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }

@@ -4,11 +4,24 @@
 package quotes;
 
 import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
-    @Test void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull(classUnderTest.getGreeting(), "app should have a greeting");
+    @Test void testFileReader() {
+        String path = "./src/main/resources/recentquotes.json";
+        List allQuotes = App.gettingInfo(path);
+
+        ArrayList<String> qotes = new ArrayList<>();
+        for (Object i : allQuotes) {
+            qotes.add(i.toString());
+        }
+        assertEquals( true , qotes.contains("{author: Cassandra Clare, text:  “Have you fallen in love with the wrong person yet?'}") );
+        assertEquals( true , qotes.contains("{author: Mark Lawrence, text:  “A Dark time comes. }") );
+        assertEquals( false , qotes.contains("{author:  W. Purkey, text: nobody watching}") );
+        assertEquals( true , qotes.contains("{author: William W. Purkey, text:  “You've gotta dance like there's nobody watching}") );
     }
 }

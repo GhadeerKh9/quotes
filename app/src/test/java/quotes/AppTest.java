@@ -40,6 +40,5 @@ import static org.junit.jupiter.api.Assertions.*;
 
             assertTrue(App.gettingInfo(API)!= null);
         }
-
     }
 

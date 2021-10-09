@@ -9,9 +9,37 @@ import org.junit.jupiter.api.Test;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class AppTest {
 
-}
+import org.junit.jupiter.api.Test;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+    class AppTest {
+        @Test void testFileReader() {
+            String path = "./src/test/resources/recentquotes.json";
+            List fileQuotes = App.gettingInfo(path);
+            ArrayList<String> quotes = new ArrayList<>();
+            for (Object i : fileQuotes) {
+                quotes.add(i.toString());
+            }
+            assertEquals( true , quotes.contains("{author: Cassandra Clare, text:  “Have you fallen in love with the wrong person yet?'}") );
+            assertEquals( true , quotes.contains("{author: Mark Lawrence, text:  “A Dark time comes. }") );
+            assertEquals( false , quotes.contains("{author:  W. Purkey, text: nobody watching}") );
+            assertEquals( true , quotes.contains("{author: William W. Purkey, text:  “You've gotta dance like there's nobody watching}") );
+        }
+        @Test void testApiReader() {
+            String API= "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
+
+            assertTrue(App.gettingInfo(API)!= null);
+        }
+
+    }
+

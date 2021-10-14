@@ -20,7 +20,7 @@ public class App {
         onlineQuotes(API);
     }
 
-    ////////////////take quote from GSON/////////
+
     public static List gettingInfo(String extension) {
         Gson gson = new Gson();
         FileReader fileReader = null;

@@ -11,17 +11,20 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
+    @Test void testFileReader() {
+        String path = "./src/main/resources/recentquotes.json";
+        List allQuotes = App.gettingInfo(path);
 
-    @Test void testApi() {
-        String API= "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
-
-        assertTrue(App.onlineQuotes(API)!= null);
+        ArrayList<String> qotes = new ArrayList<>();
+        for (Object i : allQuotes) {
+            qotes.add(i.toString());
+        }
+        assertEquals( true , qotes.contains("{author: Cassandra Clare, text:  “Have you fallen in love with the wrong person yet?'}") );
+        assertEquals( true , qotes.contains("{author: Mark Lawrence, text:  “A Dark time comes. }") );
+        assertEquals( false , qotes.contains("{author:  W. Purkey, text: nobody watching}") );
+        assertEquals( true , qotes.contains("{author: William W. Purkey, text:  “You've gotta dance like there's nobody watching}") );
     }
-
 }
-
-
-
 
 
 

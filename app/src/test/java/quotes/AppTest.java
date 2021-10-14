@@ -12,11 +12,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class AppTest {
 
-        @Test void testApi() {
-            String API= "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
+    @Test void testApi() {
+        String API= "http://api.forismatic.com/api/1.0/?method=getQuote&format=json&lang=en";
 
-            assertTrue(App.onlineQuotes(API)!= null);
-        }
-
+        assertTrue(App.onlineQuotes(API)!= null);
     }
 
+}

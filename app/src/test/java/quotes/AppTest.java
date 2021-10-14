@@ -25,3 +25,6 @@ class AppTest {
         assertEquals( true , qotes.contains("{author: William W. Purkey, text:  “You've gotta dance like there's nobody watching}") );
     }
 }
+
+
+
